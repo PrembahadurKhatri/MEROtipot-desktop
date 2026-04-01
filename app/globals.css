@@ -23,6 +23,7 @@
   text-align: center;
   max-height: 100vh;
 }
+
 .third {
   display: flex;
   flex-direction: column;
@@ -50,18 +51,20 @@
   display: flex;
   gap: 10px;
   margin-top: 50px;
-  
+
 }
+
 .stores {
   margin-top: 20px;
   height: 78vh;
   background-color: whitesmoke;
- margin-right: 10px;
+  margin-right: 10px;
   border-radius: 20px;
   overflow-y: auto;
   width: 310px;
-  color:rgb(50, 204, 204) ;
+  color: rgb(50, 204, 204);
 }
+
 .textai {
   width: 220px;
   height: 30px;
@@ -73,17 +76,23 @@
   resize: none;
   font-size: 16px;
   background: whitesmoke;
-   color: gray;
-    overflow: auto;        /* scroll enable */
-  scrollbar-width: none; /* Firefox */
+  color: gray;
+  overflow: auto;
+  /* scroll enable */
+  scrollbar-width: none;
+  /* Firefox */
 }
-.aibot{
+
+.aibot {
   color: black;
   padding: 8px;
   text-align: center;
 }
 
-.we{display: flex;}
+.we {
+  display: flex;
+}
+
 .but {
   padding: 6px;
   height: 40px;
@@ -124,7 +133,7 @@
 }
 
 .fileCard {
- background-color: white;
+  background-color: white;
   border-radius: 15px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   width: 260px;
@@ -148,6 +157,7 @@
   cursor: pointer;
   background-color: white;
 }
+
 .btn {
   background-color: #a751e1;
   /* Slightly nicer purple */
@@ -421,7 +431,8 @@
 .images {
   padding: 30px;
 }
-.ais{
+
+.ais {
   color: #ff0066;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -429,6 +440,7 @@
   font-size: 35px;
   font-weight: 700;
 }
+
 /* Mobile Responsive Styles - Refined */
 @media (max-width: 768px) {
   .gridContainer {
@@ -440,7 +452,7 @@
   /* Header bigger & centered */
   .first {
     font-size: 40px;
-    font-family:  sans-serif;
+    font-family: sans-serif;
     font-weight: 700;
     margin: 10px 0;
     flex-direction: row;
@@ -456,11 +468,14 @@
     font-size: 16px;
     padding: 8px 10px;
     border-radius: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   }
 
   /* Sidebars bigger for items */
-  .store, .stores, .fileList, .third {
+  .store,
+  .stores,
+  .fileList,
+  .third {
     width: 95%;
     max-height: 50vh;
     margin: 10px auto;
@@ -470,7 +485,8 @@
   }
 
   /* File cards & Notes items bigger */
-  .fileCard, .notebox {
+  .fileCard,
+  .notebox {
     width: 100%;
     font-size: 18px;
     padding: 12px;
@@ -494,11 +510,12 @@
     width: 95%;
     padding: 15px;
     border-radius: 20px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
   }
 
   /* Textarea & input improvements */
-  .texta, .inputt {
+  .texta,
+  .inputt {
     width: 100%;
     font-size: 16px;
     padding: 12px;
@@ -534,7 +551,8 @@
     font-size: 28px;
     margin: 5px 0;
     padding: 10px;
-    white-space: normal; /* allow long names wrap */
+    white-space: normal;
+    /* allow long names wrap */
   }
 
   .images {
@@ -543,14 +561,18 @@
   }
 
   /* Buttons - full width & stacked */
-  .button, .btn-gap {
+  .button,
+  .btn-gap {
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
   }
 
-  .Btns, .btns, .btn, .but {
+  .Btns,
+  .btns,
+  .btn,
+  .but {
     font-size: 16px;
     padding: 10px;
     width: 90%;
@@ -564,9 +586,50 @@
 
 /* Extra small screens (<480px) */
 @media (max-width: 480px) {
-  .first { font-size: 24px; }
-  .hero { font-size: 26px; }
-  .heros { font-size: 14px; }
-  .texta, .inputt { font-size: 14px; padding: 10px; }
-  .Btns, .btns, .btn, .but { font-size: 14px; padding: 8px; width: 95%; }
+  .first {
+    font-size: 24px;
+  }
+
+  .hero {
+    font-size: 26px;
+  }
+
+  .heros {
+    font-size: 14px;
+  }
+.button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+  .texta,
+  .inputt {
+    font-size: 14px;
+    padding: 10px;
+    width: 80%;
+  }
+ .Btns{
+    font-size: 14px;
+    padding: 8px;
+    width: fit-content;
+    
+ }
+  .btns,
+  .btn,
+  .but {
+    font-size: 14px;
+    padding: 8px;
+    width: 95%;
+  }
+  .noteBox {
+    width: 95%;
+    height: auto;
+    padding: 10px;
+  }
+  .notebox {
+    width: 90%;
+    font-size: 16px;
+    padding: 10px;
+    margin-left: 8px ;
+  }
 }
