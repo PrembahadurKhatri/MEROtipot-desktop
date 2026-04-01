@@ -439,9 +439,11 @@
 
   /* Header bigger & centered */
   .first {
-    font-size: 28px;
+    font-size: 40px;
+    font-family:  sans-serif;
+    font-weight: 700;
     margin: 10px 0;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     text-align: center;
     gap: 5px;
@@ -449,7 +451,8 @@
 
   /* Search bar - wider and better style */
   .textai {
-    width: 95%;
+    width: 80%;
+    margin-bottom: 20px;
     font-size: 16px;
     padding: 8px 10px;
     border-radius: 12px;
