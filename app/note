@@ -69,7 +69,8 @@ The UI automatically re-renders with the new note.
 
 
 
-
+npm install idb 
+ani db.js
 
 
 
