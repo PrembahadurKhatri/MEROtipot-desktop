@@ -11,19 +11,14 @@ const [selectnote,setSelectnote]=useState(null);
 const [files,setFiles]=useState([]);
 const [selectedFile, setSelectedFile] = useState(null);
 const [search, setSearch] = useState("");
-const [find,setFind]=useState("");
 const [filter, setFilter] = useState("all");
- useEffect(() => {
-  const savednotes = localStorage.getItem("notes");
-  if (savednotes) {
-    setNotes(JSON.parse(savednotes));
-  }
-
-  const savedFiles = localStorage.getItem("files");
-  if (savedFiles) {
-    setFiles(JSON.parse(savedFiles));
-  }
-}, []);
+  useEffect(() => {//react hook component render bhasi run hunxa
+   
+    const savednotes = localStorage.getItem("notes"); //saved notes lai read garna khojexa
+    if (savednotes) { //saved notes xa bhaney 
+      setNotes(JSON.parse(savednotes));//teslai json bata feri js array of object ma convert garni  
+    }
+  }, []);//[] ek choti matra run garni
 
   const handlecreatenote = () => {
          if(isCreating){
@@ -65,55 +60,29 @@ const [filter, setFilter] = useState("all");
     setSelectnote(null);
     setIsCreating(false);
   }
-const handlefile = (e) => {
-  const selectfiles = Array.from(e.target.files);
-
-  selectfiles.forEach(file => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const newFile = {
-        name: file.name,
-        type: file.type,
-        data: reader.result, // ✅ Base64 data
-        star: false
-      };
-
-      setFiles(prev => {
-        const updated = [...prev, newFile];
-        localStorage.setItem("files", JSON.stringify(updated)); // ✅ save
-        return updated;
-      });
-    };
-
-    reader.readAsDataURL(file); // ✅ convert to base64
-  });
-};
+  const handlefile = (e) => {
+    const selectfiles = Array.from(e.target.files);//convert file list to array
+    if(selectfiles.length > 0){
+      setFiles(prevfiles => [...prevfiles,...selectfiles]);//append to existing
+    }
+    }
 const filteredFiles = files.filter((file) => {
-  const matchSearch = (file.name || "").toLowerCase().includes(search.toLowerCase());
+  const matchSearch = file.name.toLowerCase().includes(search.toLowerCase());
 
   if (filter === "pdf") return matchSearch && file.type === "application/pdf";
-  if (filter === "image") return matchSearch && file.type?.startsWith("image/");
+  if (filter === "image") return matchSearch && file.type.startsWith("image/");
 
   return matchSearch;
 });
 const toggleStar = (index) => {
   const updated = [...files];
   updated[index].star = !updated[index].star;
-
   setFiles(updated);
-  localStorage.setItem("files", JSON.stringify(updated)); // ✅
 };
-
 const removeFile = (index) => {
   const updated = files.filter((_, i) => i !== index);
-
   setFiles(updated);
-  localStorage.setItem("files", JSON.stringify(updated)); // ✅
 };
-const filteredNotes = notes.filter(note =>
-  (note.topic || "").toLowerCase().includes(find.toLowerCase())
-);
   return (
     <div>
       <div className="gridContainer">
@@ -121,49 +90,62 @@ const filteredNotes = notes.filter(note =>
           <h1 className="first" >
             <img src="notes.png" alt="logo" width={40} height={40} />
             Mero तिपोट</h1>
-             <input
-    className="textai" style={{marginLeft:40,marginTop:40}}
-    placeholder="Search Notes..."
-    value={find}
-    onChange={(e) => setFind(e.target.value)}
-  />
-
           <div className="store">
             <h1 style={{ color: "purple", textAlign: "center", padding: 8 }}>Notes</h1>
               
                  <div  >
-             <ol>
-  {filteredNotes.map((note) => (
-    <li
-      className="notebox"
-      key={note.id}
-      style={{ cursor: "pointer" }}
-      onClick={() => {
-        setSelectnote(note);
-        setSelectedFile(null);
-      }}
-    >
-      {note.topic || "untitled"}
-    </li>
-  ))}
-</ol>        
+                  <ol >
+                    {notes.map((note) => (
+                      <li className="notebox" key={note.id}>
+                        <span 
+                        style={{cursor:"pointer"}} onClick={() => {
+                          setSelectnote(note);
+                          setSelectedFile(null);
+                        }}>{note.topic || "untitled"} </span></li>
+                    ))}
+                  {files.map((file,index) => (
+                 <li className="notebox" key={index}>
+                <span  onClick={() => {setSelectedFile(file); setSelectnote(null);}}  style={{cursor:"pointer"}}>{file.name}</span> </li> 
+         ))}   
+            </ol>
+                  
             </div>
+             
             </div>
+          <div className="btn-gap">
+            <button className="btn" style={{ paddingLeft: "80px" }} onClick={handlecreatenote}> + Create Notes  </button>
+              <input type="file"
+              id="fileupload"
+              style={{display:"none"}}
+              accept=".pdf,image/*"
+              multiple // ✅ add this if multiple files are allowed
+              onChange={handlefile}
+              />
+            <button className="btn"  onClick={() => document.getElementById("fileupload").click()}>
+              <img src="https://cdn3.emoji.gg/emojis/7458-upload.png"
+                width={20} height={20} alt="upload" />
+              <span  >Upload PDF/Image</span>
+            </button>
+          </div>
         </div>
+
+
         <div className="second">
          {selectedFile ? (
           <div className="preview">
             <h2 className="head">{selectedFile.name}</h2>
 
-        {/* Image */}
-{selectedFile.type.startsWith("image/") && (
-  <img src={selectedFile.data} className="images" style={{maxWidth:"60%"}} />
-)}
-
-{/* PDF */}
-{selectedFile.type === "application/pdf" && (
-  <iframe src={selectedFile.data} width="100%" height="500px"></iframe>
-)}
+            {/*Image */}
+            {selectedFile.type.startsWith("image/")  && (
+              <img className="images" src={URL.createObjectURL(selectedFile)} alt="preview" style={{maxWidth:"60%"}} />
+            )}
+            {selectedFile.type==="application/pdf" && (
+               <iframe
+          src={URL.createObjectURL(selectedFile)}
+          width="100%"
+          height="500px"
+        ></iframe>
+            )}
             <button className="Btns" onClick={() => setSelectedFile(null)}>Close</button>
           </div>
 ) :    selectnote ? (
@@ -219,7 +201,7 @@ const filteredNotes = notes.filter(note =>
 
 <div className="third">
   <div className="we">
-   
+    <img src="ai.png" width={40} />
     <h1 className="ai">Document Hub</h1>
   </div>
 
@@ -229,7 +211,6 @@ const filteredNotes = notes.filter(note =>
     placeholder="Search files..."
     value={search}
     onChange={(e) => setSearch(e.target.value)}
-    style={{marginTop:40}}
   />
 
   {/* FILTER BUTTONS */}
@@ -258,7 +239,7 @@ const filteredNotes = notes.filter(note =>
             {file.star ? "⭐" : "☆"}
           </button>
 
-          <button onClick={() => removeFile(index)}  >🗑</button>
+          <button onClick={() => removeFile(index)} >🗑</button>
         </div>
       </div>
     ))}

@@ -1,0 +1,77 @@
+1️⃣ useEffect to load notes from localStorage
+useEffect(() => {
+  const storedNotes = localStorage.getItem("notes");
+  if (storedNotes) {
+    setNotes(JSON.parse(storedNotes));
+  }
+}, []);
+
+Explanation:
+
+useEffect(() => { ... }, [])
+useEffect is a React hook that runs after the component renders.
+The empty array [] means it only runs once, when the page/component loads.
+localStorage.getItem("notes")
+This tries to read the string stored in the browser’s localStorage under the key "notes".
+localStorage is like a small permanent storage in the browser — data stays even after page reload.
+if (storedNotes)
+Checks if there actually is any saved data.
+setNotes(JSON.parse(storedNotes))
+storedNotes is stored as a string in localStorage.
+JSON.parse converts it back into a JavaScript array of objects.
+setNotes(...) updates the React state so your notes display on the page immediately.
+
+✅ Effect: When you open/reload the page, any previously saved notes are automatically loaded and displayed.
+
+2️⃣ Creating a new note
+const handleCreateNote = () => {
+  const newNote = { id: Date.now(), title: "New Note", content: "" };
+
+  setNotes(prevNotes => {
+    const updatedNotes = [...prevNotes, newNote];
+    localStorage.setItem("notes", JSON.stringify(updatedNotes)); // sync with localStorage
+    return updatedNotes;
+  });
+};
+
+Explanation:
+ 
+const newNote = { id: Date.now(), title: "New Note", content: "" };
+Creates a new note object with:
+id: unique number using Date.now()
+title: "New Note"
+content: empty for now
+setNotes(prevNotes => { ... })
+Functional state update — React provides prevNotes, the current state of notes.
+This is safer than using setNotes([...notes, newNote]) because React state updates asynchronously.
+Ensures you don’t accidentally overwrite the latest notes if multiple updates happen quickly.
+const updatedNotes = [...prevNotes, newNote];
+Adds the new note to the existing notes array.
+localStorage.setItem("notes", JSON.stringify(updatedNotes));
+Converts the updatedNotes array into a string (JSON) and saves it in localStorage.
+This makes your notes persistent across page reloads.
+return updatedNotes;
+Updates the React state with the new array of notes.
+The UI automatically re-renders with the new note.
+
+
+अब 2 type state चाहिन्छ:
+
+1. notes → saved notes (list मा देखिने)
+2. draft → अहिले लेखिरहेको note (temporary)
+
+              /><button className="Btns" onClick={() => document.getElementById("fileupload").click()}>//When clicked, it programmatically clicks the hidden file input.
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
