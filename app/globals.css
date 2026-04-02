@@ -614,6 +614,12 @@
     width: fit-content;
     
  }
+ .images{
+  padding: 20px;
+  width: 60%;
+  margin: 20px auto;
+ height: auto;
+}
   .btns,
   .btn,
   .but {
@@ -627,6 +633,12 @@
     padding: 10px;
   }
   .notebox {
+    width: 90%;
+    font-size: 16px;
+    padding: 10px;
+    margin-left: 8px ;
+  }
+  .fileCard{
     width: 90%;
     font-size: 16px;
     padding: 10px;
